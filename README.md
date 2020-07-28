@@ -24,3 +24,7 @@ tags = get_jablonskis_tags('Vgmp1s--n--ni-')
 print(' '.join(tags))
 
 ```
+Output
+```sh
+vksm. asm. tiesiog. es. vns. 1.
+```
