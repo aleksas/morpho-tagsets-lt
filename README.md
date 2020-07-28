@@ -14,7 +14,7 @@ Original source of the specs is [Lithuanian morphologically annotated corpus - M
 pip install git+https://github.com/aleksas/multext-east-jablonskis-convertor.git
 ```
 
-# Example
+## Example
 
 ```python
 
