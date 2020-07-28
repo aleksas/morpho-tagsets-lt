@@ -13,3 +13,14 @@ Original source of the specs is [Lithuanian morphologically annotated corpus - M
 ```sh
 pip install git+https://github.com/aleksas/multext-east-jablonskis-convertor.git
 ```
+
+# Example
+
+```python
+
+from multext_east_jablonskis_convertor import get_jablonskis_tags
+
+tags = get_jablonskis_tags('Vgmp1s--n--ni-')
+print(' '.join(tags))
+
+```
