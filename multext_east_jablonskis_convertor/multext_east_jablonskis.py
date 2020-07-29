@@ -106,7 +106,7 @@ abbreviation = [
 
 others = [
     {'X': 'kita'}, # Category
-    {'f': 'užs.', 't': None, 'p': None, 'h': None, 'l': None, 'e': None, 'i': None, 'g': None, 't': None, '-': None} # Type
+    {'f': 'užs.', 't': None, 'p': None, 'h': None, 'l': None, 'e': None, 'i': None, 'g': None, 't': None, '-': None, 'r': None} # Type !DOC ISSUE: add r
 ]
 
 punctuation = [
