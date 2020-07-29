@@ -100,7 +100,7 @@ onomatopoeia = [
 ]
 
 abbreviation = [
-    {'O': None}, # Category
+    {'Y': None}, # Category
     {'s': 'sutr.', 'a': 'akr.', 'n': None, 'x': None} # Type
 ]
 
