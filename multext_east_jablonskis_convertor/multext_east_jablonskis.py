@@ -13,7 +13,7 @@ degree_ar = {'p': 'nelygin.', 'c': 'aukšt.', 's': 'aukšč.', 'd': None, '-': N
 
 noun = [
     {'N': 'dkt.'}, # Category
-    {'c': None, 'p': 'tikr', 'n': None, 'x': None}, # Type
+    {'c': None, 'p': 'tikr.', 'n': None, 'x': None}, # Type
     {'c': 'bendr.', 'f': 'mot.', 'm': 'vyr.', '-': None}, #Gender
     number_npam, # Number
     case_nvapm, # Case
@@ -100,7 +100,7 @@ onomatopoeia = [
 ]
 
 abbreviation = [
-    {'Y': None}, # Category
+    {'O': None}, # Category
     {'s': 'sutr.', 'a': 'akr.', 'n': None, 'x': None} # Type
 ]
 
@@ -117,7 +117,7 @@ punctuation = [
 # Helpers
 
 categories = [
-    (noun, (0, 1, 5, 2, 4)),
+    (noun, (0, 1, 5, 2, 3, 4)),
     (verb, (0, 2, 8, 11, 12, 7, 3, 13, 9, 6, 5, 10, 4)),
     (adjective,  (0, 2, 6, 3, 4, 5)),
     (pronoun, (0, 5, 2, 3, 4)),
