@@ -76,7 +76,7 @@ adverb = [
 preposition = [
     {'S': 'prl.'}, # Category
     type_varsqio, # Type
-    {'g': 'K.', 'd': 'N.', 'a': 'G.', 'i': 'Įn.'} # Case
+    {'g': 'K.', 'd': 'N.', 'a': 'G.', 'i': 'Įn.', '-': None} # Case !DOC ISSUE: add -
 ]
 
 conjunction = [
