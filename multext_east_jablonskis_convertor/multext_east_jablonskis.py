@@ -86,7 +86,7 @@ conjunction = [
 
 particle = [
     {'Q': 'dll.'}, # Category
-    type_varsqio # Type
+    {'g': None, 'n': None, 'x': None, '-': None} # Type !DOC ISSUE: add -
 ]
 
 interjection = [
@@ -100,7 +100,7 @@ onomatopoeia = [
 ]
 
 abbreviation = [
-    {'O': None}, # Category
+    {'Y': None}, # Category
     {'s': 'sutr.', 'a': 'akr.', 'n': None, 'x': None} # Type
 ]
 
