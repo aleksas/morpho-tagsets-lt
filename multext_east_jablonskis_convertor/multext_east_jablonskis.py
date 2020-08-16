@@ -137,14 +137,14 @@ category_map = { list(category[0][0].keys())[0]: category for category in catego
 
 def get_jablonskis_tags(multext_east):
     category = category_map[multext_east[0]][0]
-    category_order = category_map[multext_east[0]][1]
+    category_tag_order = category_map[multext_east[0]][1]
 
     tags = []
     
     for i, code in enumerate(multext_east):
         tags.append( category[i][code] )
     
-    for i in category_order:
+    for i in category_tag_order:
         tag = tags[i]
         if tag:
             yield tag
