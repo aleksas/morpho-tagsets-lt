@@ -68,6 +68,10 @@ class SimpleTestCase(TestCase):
                 category_tag = list(category[0].values())[0]
                 if category_tag not in tags:
                     raise Exception()
+    
+    def test_2(self):
+        a = list(mej.get_jablonskis_tags('Npfsdng'))
+        print(a)
 
 if __name__ == '__main__':
     main()

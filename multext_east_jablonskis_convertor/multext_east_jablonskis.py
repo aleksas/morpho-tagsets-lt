@@ -1,3 +1,5 @@
+from enum import Enum
+
 # Common tags
 
 case_nvapm = {'n': 'V.', 'g': 'K.', 'd': 'N.', 'a': 'G.', 'i': 'Įn.', 'l': 'Vt.', 'v': 'Š.', 'x': 'Il.', '-': None}
@@ -9,142 +11,179 @@ type_varsqio = {'g': None, 'n': None, 'x': None}
 type_pc = {'g': None}
 degree_ar = {'p': 'nelygin.', 'c': 'aukšt.', 's': 'aukšč.', 'd': None, '-': None}
 
+class Placeholder(Enum):
+    CATEGORY = 'Category'
+    TYPE = 'Type'
+    VERB_FORM = 'Verb Form'
+    TENSE = 'Tense'
+    PERSON = 'Person'
+    NUMBER = 'Number'
+    GENDER = 'Gender'
+    VOICE = 'Voice'
+    POLARITY = 'Polarity'
+    DEFINETENESS = 'Defineteness'
+    CASE = 'Case'
+    REFLEXIVENESS = 'Reflexiveness'
+    MOOD = 'Mood'
+    NUMBER_TYPE = 'Number Type'
+    NUMBER_FORM = 'Form'
+    DEGREE = 'Degree'
+    NAME = 'Name'
+
+
 # Categories
 
 noun = [
-    {'N': 'dkt.'}, # Category
-    {'c': None, 'p': 'tikr', 'n': None, 'x': None}, # Type
-    {'c': 'bendr.', 'f': 'mot.', 'm': 'vyr.', '-': None}, #Gender
-    number_npam, # Number
-    case_nvapm, # Case
-    reflexiveness_nv, # Reflexiveness
-    {'f': None, 's': None, 'g': None, '-': None} # Name
+    (Placeholder.CATEGORY, {'N': 'dkt.'}), # Category
+    (Placeholder.TYPE, {'c': None, 'p': 'tikr.', 'n': None, 'x': None}), # Type
+    (Placeholder.GENDER, {'c': 'bendr.', 'f': 'mot.', 'm': 'vyr.', '-': None}), #Gender
+    (Placeholder.NUMBER, number_npam), # Number
+    (Placeholder.CASE, case_nvapm), # Case
+    (Placeholder.REFLEXIVENESS, reflexiveness_nv), # Reflexiveness
+    (Placeholder.NAME, {'f': None, 's': None, 'g': None, '-': None}) # Name
 ]
 
 verb = [
-    {'V': 'vksm.'}, # Category
-    type_varsqio, # Type
-    {'i': 'bndr.', 'm': 'asm.', 'p': 'dlv.', 'a': 'pad.', 'h': 'pusd.', 'b': 'būdn.'}, # VForm
-    {'p': 'es.', 's': 'būt.', 'a': 'būt-k.', 'q': 'būt-d.', 'f': 'būs.', '-': None}, # Tense
-    {'1': '1.', '2': '2.', '3': '3.', '-': None}, # Person
-    {'p': 'dgs.', 's': 'vns.', 'd': 'dvisk.', '-': None}, # Number !DOC ISSUE: add -
-    gender_vapm, # Gender
-    {'a': 'veik.', 'p': 'neveik.', 'n': 'reik.', '-': None}, # Voice
-    {'y': 'neig.', 'n': None}, # Negative
-    defineteness_vapm, # Defineteness !DOC ISSUE : add -
-    case_nvapm, # Case
-    reflexiveness_nv, # Reflexiveness
-    {'i': 'tiesiog.', 's': 'tar.', 'm': 'liep.', '-': None}, # Mood
-    {'p': 'nelygin.', 'c': 'aukšt.', 's': 'aukšč.', '-': None} # Degree
+    (Placeholder.CATEGORY, {'V': 'vksm.'}), # Category
+    (Placeholder.TYPE, type_varsqio,), # Type
+    (Placeholder.VERB_FORM, {'i': 'bndr.', 'm': 'asm.', 'p': 'dlv.', 'a': 'pad.', 'h': 'pusd.', 'b': 'būdn.'}), # VForm
+    (Placeholder.TENSE, {'p': 'es.', 's': 'būt.', 'a': 'būt-k.', 'q': 'būt-d.', 'f': 'būs.', '-': None}), # Tense
+    (Placeholder.PERSON, {'1': '1.', '2': '2.', '3': '3.', '-': None}), # Person
+    (Placeholder.NUMBER, {'p': 'dgs.', 's': 'vns.', 'd': 'dvisk.', '-': None}), # Number !DOC ISSUE: add -
+    (Placeholder.GENDER, gender_vapm,), # Gender
+    (Placeholder.VOICE, {'a': 'veik.', 'p': 'neveik.', 'n': 'reik.', '-': None}), # Voice
+    (Placeholder.POLARITY, {'y': 'neig.', 'n': None}), # Negative / Polarity
+    (Placeholder.DEFINETENESS, defineteness_vapm,), # Defineteness !DOC ISSUE : add -
+    (Placeholder.CASE, case_nvapm,), # Case
+    (Placeholder.REFLEXIVENESS, reflexiveness_nv,), # Reflexiveness
+    (Placeholder.MOOD, {'i': 'tiesiog.', 's': 'tar.', 'm': 'liep.', '-': None}), # Mood
+    (Placeholder.DEGREE, {'p': 'nelygin.', 'c': 'aukšt.', 's': 'aukšč.', '-': None}) # Degree
 ]
 
 adjective = [
-    {'A': 'bdv.'}, # Category
-    type_varsqio, # Type
-    degree_ar, # Degree
-    gender_vapm, # Gender
-    number_npam, # Number
-    case_nvapm, # Case
-    defineteness_vapm # Defineteness
+    (Placeholder.CATEGORY, {'A': 'bdv.'}), # Category
+    (Placeholder.TYPE, type_varsqio,), # Type
+    (Placeholder.DEGREE, degree_ar,), # Degree
+    (Placeholder.GENDER, gender_vapm,), # Gender
+    (Placeholder.NUMBER, number_npam,), # Number
+    (Placeholder.CASE, case_nvapm,), # Case
+    (Placeholder.DEFINETENESS, defineteness_vapm), # Defineteness
 ]
 
 pronoun = [
-    {'P': 'įv.'}, # Category
-    type_pc, # Type
-    gender_vapm, # Gender
-    number_npam, # Number
-    case_nvapm, # Case
-    defineteness_vapm # Defineteness
+    (Placeholder.CATEGORY, {'P': 'įv.'}), # Category
+    (Placeholder.TYPE, type_pc,), # Type
+    (Placeholder.GENDER, gender_vapm,), # Gender
+    (Placeholder.NUMBER, number_npam,), # Number
+    (Placeholder.CASE, case_nvapm,), # Case
+    (Placeholder.DEFINETENESS, defineteness_vapm), # Defineteness
 ]
 
 numeral = [
-    {'M': 'sktv.'}, # Category
-    {'c': 'kiek.', 'o': 'kelint.', 'l': 'kuopin.', 'm': 'daugin.', 'n': None, 'x': None, '-': None}, # Type
-    gender_vapm, # Gender
-    number_npam, # Number
-    case_nvapm, # Case
-    {'d': 'arab.', 'r': 'rom.', 'l': 'raid.', 'm': 'mišr.', '-': None}, # Form !DOC ISSUE: add -
-    defineteness_vapm, # Defineteness
+    (Placeholder.CATEGORY, {'M': 'sktv.'}), # Category
+    (Placeholder.NUMBER_TYPE, {'c': 'kiek.', 'o': 'kelint.', 'l': 'kuopin.', 'm': 'daugin.', 'n': None, 'x': None, '-': None}), # Type
+    (Placeholder.GENDER, gender_vapm,), # Gender
+    (Placeholder.NUMBER, number_npam,), # Number
+    (Placeholder.CASE, case_nvapm,), # Case
+    (Placeholder.NUMBER_FORM, {'d': 'arab.', 'r': 'rom.', 'l': 'raid.', 'm': 'mišr.', '-': None}), # Form !DOC ISSUE: add -
+    (Placeholder.DEFINETENESS, defineteness_vapm,), # Defineteness
 ]
 
 adverb = [
-    {'R': 'prv.'}, # Category
-    type_varsqio, # Type
-    degree_ar # Degree
+    (Placeholder.CATEGORY, {'R': 'prv.'}), # Category
+    (Placeholder.TYPE, type_varsqio,), # Type
+    (Placeholder.DEGREE, degree_ar), # Degree
 ]
 
 preposition = [
-    {'S': 'prl.'}, # Category
-    type_varsqio, # Type
-    {'g': 'K.', 'd': 'N.', 'a': 'G.', 'i': 'Įn.'} # Case
+    (Placeholder.CATEGORY, {'S': 'prl.'}), # Category
+    (Placeholder.TYPE, type_varsqio,), # Type
+    (Placeholder.CASE, {'g': 'K.', 'd': 'N.', 'a': 'G.', 'i': 'Įn.'}), # Case
 ]
 
 conjunction = [
-    {'C': 'jng.'}, # Category
-    type_pc # Type
+    (Placeholder.CATEGORY, {'C': 'jng.'}), # Category
+    (Placeholder.TYPE, type_pc), # Type
 ]
 
 particle = [
-    {'Q': 'dll.'}, # Category
-    type_varsqio # Type
+    (Placeholder.CATEGORY, {'Q': 'dll.'}), # Category
+    (Placeholder.TYPE, type_varsqio), # Type
 ]
 
 interjection = [
-    {'I': 'jst.'}, # Category
-    type_varsqio # Type
+    (Placeholder.CATEGORY, {'I': 'jst.'}), # Category
+    (Placeholder.TYPE, type_varsqio), # Type
 ]
 
 onomatopoeia = [
-    {'O': 'išt.'}, # Category
-    type_varsqio # Type
+    (Placeholder.CATEGORY, {'O': 'išt.'}), # Category
+    (Placeholder.TYPE, type_varsqio), # Type
 ]
 
 abbreviation = [
-    {'O': None}, # Category
-    {'s': 'sutr.', 'a': 'akr.', 'n': None, 'x': None} # Type
+    (Placeholder.CATEGORY, {'O': None}), # Category
+    (Placeholder.TYPE, {'s': 'sutr.', 'a': 'akr.', 'n': None, 'x': None}), # Type
 ]
 
 others = [
-    {'X': 'kita'}, # Category
-    {'f': 'užs.', 't': None, 'p': None, 'h': None, 'l': None, 'e': None, 'i': None, 'g': None, 't': None, '-': None} # Type
+    (Placeholder.CATEGORY, {'X': 'kita'}), # Category
+    (Placeholder.TYPE, {'f': 'užs.', 't': None, 'p': None, 'h': None, 'l': None, 'e': None, 'i': None, 'g': None, 't': None, '-': None}), # Type
 ]
 
 punctuation = [
-    {'T': 'skyr.'}, # Category
-    {'p': None, 'c': None, 's': None, 'n': None, 'q': None, 'e': None, 'i': None, 'h': None, 'l': None, 'r': None, 'u': None, 't': None, 'x': None} # Type
+    (Placeholder.CATEGORY, {'T': 'skyr.'}), # Category
+    (Placeholder.TYPE, {'p': None, 'c': None, 's': None, 'n': None, 'q': None, 'e': None, 'i': None, 'h': None, 'l': None, 'r': None, 'u': None, 't': None, 'x': None}), # Type
 ]
-
-# Helpers
 
 categories = [
-    (noun, (0, 1, 5, 2, 4)),
-    (verb, (0, 2, 8, 11, 12, 7, 3, 13, 9, 6, 5, 10, 4)),
-    (adjective,  (0, 2, 6, 3, 4, 5)),
-    (pronoun, (0, 5, 2, 3, 4)),
-    (numeral, (0, 5, 1, 6, 2, 3, 4)),
-    (adverb,  (0, 2)),
-    (preposition, (0, 2)),
-    (conjunction, (0, )),
-    (particle, (0, )),
-    (interjection, (0, )),
-    (onomatopoeia, (0, )),
-    (abbreviation, (0, 1)),
-    (others, (0, )),
-    (punctuation, (0, ))
+    (noun, (Placeholder.CATEGORY, Placeholder.TYPE, Placeholder.REFLEXIVENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
+    (verb,{
+        (2,'i'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS),
+        (2,'m'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.MOOD, Placeholder.TENSE, Placeholder.NUMBER, Placeholder.PERSON),
+        (2,'p'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.TYPE, Placeholder.TENSE, Placeholder.DEGREE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE),
+        (2,'a'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.TENSE),
+        (2,'h'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.GENDER, Placeholder.NUMBER),
+        (2,'b'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS),
+        }
+    ),
+    (adjective,  (Placeholder.CATEGORY, Placeholder.DEGREE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
+    (pronoun, (Placeholder.CATEGORY, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
+    (numeral, (Placeholder.CATEGORY, Placeholder.NUMBER_FORM, Placeholder.NUMBER_TYPE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
+    (adverb,  (Placeholder.CATEGORY, Placeholder.DEGREE)),
+    (preposition, (Placeholder.CATEGORY, Placeholder.CASE)),
+    (conjunction, (Placeholder.CATEGORY, )),
+    (particle, (Placeholder.CATEGORY, )),
+    (interjection, (Placeholder.CATEGORY, )),
+    (onomatopoeia, (Placeholder.CATEGORY, )),
+    (abbreviation, (Placeholder.CATEGORY, )),
+    (others, (Placeholder.CATEGORY, )),
+    (punctuation, (Placeholder.CATEGORY, ))
 ]
 
-category_map = { list(category[0][0].keys())[0]: category for category in categories }
+category_map = { list(category[0][0][1].keys())[0]: category for category in categories }
 
 def get_jablonskis_tags(multext_east):
     category = category_map[multext_east[0]][0]
-    category_order = category_map[multext_east[0]][1]
-
+    category_tag_order = category_map[multext_east[0]][1]
+    
     tags = []
     
     for i, code in enumerate(multext_east):
         tags.append( category[i][code] )
     
-    for i in category_order:
-        tag = tags[i]
-        if tag:
-            yield tag
+    # Handle verb multiple mappings
+    if isinstance(category_tag_order, dict):
+        for key in category_tag_order.keys():
+            index, value = key
+            if multext_east[index] == value:
+                category_tag_order = category_tag_order[key]
+                break
+    
+    order_map = {each[0]:i for i, each in enumerate(category)}
+
+    # Probably too slow to map each time
+    for i in category_tag_order:
+        if tags[i]:
+            yield order_map[tags[i]]
+    
