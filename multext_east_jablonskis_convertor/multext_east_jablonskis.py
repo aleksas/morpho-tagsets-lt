@@ -98,7 +98,7 @@ adverb = [
 preposition = [
     (Placeholder.CATEGORY, {'S': 'prl.'}), # Category
     (Placeholder.TYPE, type_varsqio,), # Type
-    (Placeholder.CASE, {'g': 'K.', 'd': 'N.', 'a': 'G.', 'i': 'Įn.'}), # Case
+    (Placeholder.CASE, {'g': 'K.', 'd': 'N.', 'a': 'G.', 'i': 'Įn.', '-': None}) # Case !DOC ISSUE: add -
 ]
 
 conjunction = [
@@ -108,7 +108,7 @@ conjunction = [
 
 particle = [
     (Placeholder.CATEGORY, {'Q': 'dll.'}), # Category
-    (Placeholder.TYPE, type_varsqio), # Type
+    (Placeholder.TYPE, {'g': None, 'n': None, 'x': None, '-': None}) # Type !DOC ISSUE: add -
 ]
 
 interjection = [
@@ -128,7 +128,7 @@ abbreviation = [
 
 others = [
     (Placeholder.CATEGORY, {'X': 'kita'}), # Category
-    (Placeholder.TYPE, {'f': 'užs.', 't': None, 'p': None, 'h': None, 'l': None, 'e': None, 'i': None, 'g': None, 't': None, '-': None}), # Type
+    (Placeholder.TYPE, {'f': 'užs.', 't': None, 'p': None, 'h': None, 'l': None, 'e': None, 'i': None, 'g': None, 't': None, '-': None, 'r': None}) # Type !DOC ISSUE: add r, duplicate t
 ]
 
 punctuation = [
@@ -186,4 +186,3 @@ def get_jablonskis_tags(multext_east):
     for i in category_tag_order:
         if tags[i]:
             yield order_map[tags[i]]
-    
