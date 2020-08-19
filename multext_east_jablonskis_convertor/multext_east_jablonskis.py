@@ -163,7 +163,12 @@ categories = [
 ]
 
 category_map = {}
-placeholder_sort_order_dict = {'sampl.': Placeholder.CATEGORY + 1} # Use to sort jablonskis tags
+
+# Use to sort jablonskis tags
+placeholder_sort_order_dict = {
+    'sampl.': Placeholder.CATEGORY + 1, # MWE
+    'tęs.': Placeholder.CATEGORY + 1
+}
 
 for cat in categories:
     category_map[list(cat[0][0][1].keys())[0]] = cat
