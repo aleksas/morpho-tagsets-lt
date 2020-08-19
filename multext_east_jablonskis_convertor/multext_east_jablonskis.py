@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import Enum, auto
 
 # Common tags
 
@@ -12,23 +12,22 @@ type_pc = {'g': None}
 degree_ar = {'p': 'nelygin.', 'c': 'aukšt.', 's': 'aukšč.', 'd': None, '-': None}
 
 class Placeholder(Enum):
-    CATEGORY = 'Category'
-    TYPE = 'Type'
-    VERB_FORM = 'Verb Form'
-    TENSE = 'Tense'
-    PERSON = 'Person'
-    NUMBER = 'Number'
-    GENDER = 'Gender'
-    VOICE = 'Voice'
-    POLARITY = 'Polarity'
-    DEFINETENESS = 'Defineteness'
-    CASE = 'Case'
-    REFLEXIVENESS = 'Reflexiveness'
-    MOOD = 'Mood'
-    NUMBER_TYPE = 'Number Type'
-    NUMBER_FORM = 'Form'
-    DEGREE = 'Degree'
-    NAME = 'Name'
+    CATEGORY = auto()
+    TYPE = auto()
+    VERB_FORM = auto()
+    TENSE = auto()
+    PERSON = auto()
+    GENDER = auto()
+    NUMBER = auto()
+    VOICE = auto()
+    POLARITY = auto()
+    DEFINETENESS = auto()
+    CASE = auto()
+    REFLEXIVENESS = auto()
+    MOOD = auto()
+    NUMBER_FORM = auto()
+    DEGREE = auto()
+    NAME = auto()
 
 
 # Categories
@@ -81,7 +80,7 @@ pronoun = [
 
 numeral = [
     (Placeholder.CATEGORY, {'M': 'sktv.'}), # Category
-    (Placeholder.NUMBER_TYPE, {'c': 'kiek.', 'o': 'kelint.', 'l': 'kuopin.', 'm': 'daugin.', 'n': None, 'x': None, '-': None}), # Type
+    (Placeholder.TYPE, {'c': 'kiek.', 'o': 'kelint.', 'l': 'kuopin.', 'm': 'daugin.', 'n': None, 'x': None, '-': None}), # Type
     (Placeholder.GENDER, gender_vapm,), # Gender
     (Placeholder.NUMBER, number_npam,), # Number
     (Placeholder.CASE, case_nvapm,), # Case
@@ -138,18 +137,20 @@ punctuation = [
 
 categories = [
     (noun, (Placeholder.CATEGORY, Placeholder.TYPE, Placeholder.REFLEXIVENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
-    (verb,{
-        (2,'i'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS),
-        (2,'m'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.MOOD, Placeholder.TENSE, Placeholder.NUMBER, Placeholder.PERSON),
-        (2,'p'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.TYPE, Placeholder.TENSE, Placeholder.DEGREE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE),
-        (2,'a'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.TENSE),
-        (2,'h'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.GENDER, Placeholder.NUMBER),
-        (2,'b'): (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS),
+    (verb,{ 
+        2: {
+            'i': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS),
+            'm': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.MOOD, Placeholder.TENSE, Placeholder.NUMBER, Placeholder.PERSON),
+            'p': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.TYPE, Placeholder.TENSE, Placeholder.DEGREE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE),
+            'a': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.TENSE),
+            'h': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.GENDER, Placeholder.NUMBER),
+            'b': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS),
         }
+    }
     ),
     (adjective,  (Placeholder.CATEGORY, Placeholder.DEGREE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
     (pronoun, (Placeholder.CATEGORY, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
-    (numeral, (Placeholder.CATEGORY, Placeholder.NUMBER_FORM, Placeholder.NUMBER_TYPE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
+    (numeral, (Placeholder.CATEGORY, Placeholder.NUMBER_FORM, Placeholder.TYPE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE)),
     (adverb,  (Placeholder.CATEGORY, Placeholder.DEGREE)),
     (preposition, (Placeholder.CATEGORY, Placeholder.CASE)),
     (conjunction, (Placeholder.CATEGORY, )),
@@ -161,7 +162,16 @@ categories = [
     (punctuation, (Placeholder.CATEGORY, ))
 ]
 
-category_map = { list(category[0][0][1].keys())[0]: category for category in categories }
+category_map = {}
+placeholder_sort_order_dict = {} # Use to sort jablonskis tags
+
+for cat in categories:
+    category_map[list(cat[0][0][1].keys())[0]] = cat
+    
+    for placeholder, tags in cat[0]:
+        for v in tags.values():
+            if v:
+                placeholder_sort_order_dict[v] = placeholder.value
 
 def get_jablonskis_tags(multext_east):
     category = category_map[multext_east[0]][0]
@@ -174,11 +184,9 @@ def get_jablonskis_tags(multext_east):
     
     # Handle verb multiple mappings
     if isinstance(category_tag_order, dict):
-        for key in category_tag_order.keys():
-            index, value = key
-            if multext_east[index] == value:
-                category_tag_order = category_tag_order[key]
-                break
+        for index, value in category_tag_order.items():
+            category_tag_order = value[multext_east[index]]
+            break
     
     order_map = {each[0]:i for i, each in enumerate(category)}
 
@@ -186,3 +194,6 @@ def get_jablonskis_tags(multext_east):
     for i in category_tag_order:
         if tags[i]:
             yield order_map[tags[i]]
+
+def sort_jablonskis_tags(jablonskis_tags):
+    jablonskis_tags.sort(key=lambda k:placeholder_sort_order_dict[k])
