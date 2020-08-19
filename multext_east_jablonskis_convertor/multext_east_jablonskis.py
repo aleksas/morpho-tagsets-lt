@@ -163,7 +163,7 @@ categories = [
 ]
 
 category_map = {}
-placeholder_sort_order_dict = {} # Use to sort jablonskis tags
+placeholder_sort_order_dict = {'sampl.': Placeholder.CATEGORY + 1} # Use to sort jablonskis tags
 
 for cat in categories:
     category_map[list(cat[0][0][1].keys())[0]] = cat
@@ -171,7 +171,7 @@ for cat in categories:
     for placeholder, tags in cat[0]:
         for v in tags.values():
             if v:
-                placeholder_sort_order_dict[v] = placeholder.value
+                placeholder_sort_order_dict[v] = placeholder.value if placeholder.value == 1 else placeholder.value + 1
 
 def get_jablonskis_tags(multext_east):
     category = category_map[multext_east[0]][0]
@@ -196,4 +196,5 @@ def get_jablonskis_tags(multext_east):
             yield order_map[tags[i]]
 
 def sort_jablonskis_tags(jablonskis_tags):
+
     jablonskis_tags.sort(key=lambda k:placeholder_sort_order_dict[k])
