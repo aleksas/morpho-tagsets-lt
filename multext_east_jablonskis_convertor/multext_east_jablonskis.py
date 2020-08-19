@@ -1,4 +1,4 @@
-from enum import Enum, auto
+from enum import IntEnum, auto
 
 # Common tags
 
@@ -11,7 +11,7 @@ type_varsqio = {'g': None, 'n': None, 'x': None}
 type_pc = {'g': None}
 degree_ar = {'p': 'nelygin.', 'c': 'aukšt.', 's': 'aukšč.', 'd': None, '-': None}
 
-class Placeholder(Enum):
+class Placeholder(IntEnum):
     CATEGORY = auto()
     TYPE = auto()
     VERB_FORM = auto()
@@ -196,5 +196,4 @@ def get_jablonskis_tags(multext_east):
             yield order_map[tags[i]]
 
 def sort_jablonskis_tags(jablonskis_tags):
-
     jablonskis_tags.sort(key=lambda k:placeholder_sort_order_dict[k])
