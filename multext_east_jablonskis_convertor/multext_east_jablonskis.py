@@ -127,7 +127,7 @@ abbreviation = [
 
 others = [
     (Placeholder.CATEGORY, {'X': 'kita'}), # Category
-    (Placeholder.TYPE, {'f': 'užs.', 't': None, 'p': None, 'h': None, 'l': None, 'e': None, 'i': None, 'g': None, 't': None, '-': None, 'r': None}) # Type !DOC ISSUE: add r, duplicate t
+    (Placeholder.TYPE, {'f': 'užs.', 't': None, 'p': None, 'h': None, 'l': None, 'e': None, 'i': None, 'g': None, '-': None, 'r': None}) # Type !DOC ISSUE: add r, duplicate t
 ]
 
 punctuation = [
