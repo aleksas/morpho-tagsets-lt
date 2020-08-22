@@ -1,4 +1,8 @@
-# MULTEXT-East Jablonskis Morphosyntactic convertor
+# Morphosyntactic tagset convertor
+- MULTEXT-East
+- Jablonskis 
+- Kirtis
+
 
 Convertor written in python to convert MULTEXT-East tag to Jablonsis accoding to the specs found below.
 
