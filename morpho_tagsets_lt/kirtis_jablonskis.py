@@ -1,3 +1,5 @@
+from . import sort_jablonskis_tags
+
 jablonskis_kirtis_tag_pairs = [
 	('1.', 'Iasm.'),
 	('2.', 'IIasm.'),
@@ -144,6 +146,7 @@ def kirtis_to_jablonskis_tags(kirtis_tags, jablonskis_tags=None):
 	skip = jablonskis_tags and tags_contradict(kirtis_tags, jablonskis_tags)
 	
 	if not skip:
+		tags = []
 		for tag in kirtis_tags:
 			if tag not in kirtis_jablonskis_tag_map:
 				missing_tags.add(tag)
@@ -151,4 +154,8 @@ def kirtis_to_jablonskis_tags(kirtis_tags, jablonskis_tags=None):
 				if kirtis_jablonskis_tag_map[tag]:
 					mapped_tag = kirtis_jablonskis_tag_map[tag]
 					if mapped_tag:
-						yield mapped_tag
+						tags.append( mapped_tag )
+
+		sort_jablonskis_tags(tags)
+		
+		return tags
