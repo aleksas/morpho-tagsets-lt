@@ -28,3 +28,6 @@ Output
 ```sh
 vksm. asm. tiesiog. es. vns. 1.
 ```
+
+# TODO
+Rewrite using common set of enums. Each conentions should be defined separately from mapping into each other.
