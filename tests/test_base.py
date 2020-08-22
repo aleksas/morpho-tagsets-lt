@@ -68,20 +68,20 @@ class SimpleTestCase(TestCase):
     def test_1(self):
         for cases, category in tests:
             for _, multext, jablonskis_tags in cases:
-                tags = list(mej.get_jablonskis_tags(multext))
+                tags = list(mej.multext_east_to_jablonskis_tags(multext))
                 self.assertEqual(jablonskis_tags, tags)
 
-                category_tag = list(category[0].values())[0]
+                category_tag = list(category[0][1].values())[0]
                 self.assertIn(category_tag, tags)
     
     def test_2(self):
         for cases, _ in tests:
             for _, _, jablonskis_tags in cases:
-                shffled_jablonskis_tags = list(jablonskis_tags)
-                shuffle(shffled_jablonskis_tags)
-                mej.sort_jablonskis_tags(shffled_jablonskis_tags)
+                shuffled_jablonskis_tags = list(jablonskis_tags)
+                shuffle(shuffled_jablonskis_tags)
+                mej.sort_jablonskis_tags(shuffled_jablonskis_tags)
 
-                self.assertEqual(jablonskis_tags, shffled_jablonskis_tags)
+                self.assertEqual(jablonskis_tags, shuffled_jablonskis_tags)
 
 if __name__ == '__main__':
     main()

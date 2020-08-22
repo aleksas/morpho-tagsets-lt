@@ -13,20 +13,20 @@ degree_ar = {'p': 'nelygin.', 'c': 'aukšt.', 's': 'aukšč.', 'd': None, '-': N
 
 class Placeholder(IntEnum):
     CATEGORY = auto()
+    NUMBER_FORM = auto()
     TYPE = auto()
     VERB_FORM = auto()
-    TENSE = auto()
-    PERSON = auto()
-    GENDER = auto()
-    NUMBER = auto()
-    VOICE = auto()
     POLARITY = auto()
-    DEFINETENESS = auto()
-    CASE = auto()
     REFLEXIVENESS = auto()
     MOOD = auto()
-    NUMBER_FORM = auto()
+    VOICE = auto()
+    TENSE = auto()
     DEGREE = auto()
+    DEFINETENESS = auto()
+    GENDER = auto()
+    NUMBER = auto()
+    PERSON = auto()
+    CASE = auto()
     NAME = auto()
 
 
@@ -141,7 +141,7 @@ categories = [
         2: {
             'i': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS),
             'm': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.MOOD, Placeholder.TENSE, Placeholder.NUMBER, Placeholder.PERSON),
-            'p': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.TYPE, Placeholder.TENSE, Placeholder.DEGREE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE),
+            'p': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.VOICE, Placeholder.TENSE, Placeholder.DEGREE, Placeholder.DEFINETENESS, Placeholder.GENDER, Placeholder.NUMBER, Placeholder.CASE),
             'a': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.TENSE),
             'h': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS, Placeholder.GENDER, Placeholder.NUMBER),
             'b': (Placeholder.CATEGORY, Placeholder.VERB_FORM, Placeholder.POLARITY, Placeholder.REFLEXIVENESS),
@@ -166,8 +166,8 @@ category_map = {}
 
 # Use to sort jablonskis tags
 placeholder_sort_order_dict = {
-    'sampl.': Placeholder.CATEGORY + 1, # MWE
-    'tęs.': Placeholder.CATEGORY + 1
+    'sampl.': Placeholder.CATEGORY.value + 1, # MWE
+    'tęs.': Placeholder.CATEGORY.value + 1
 }
 
 for cat in categories:
@@ -178,14 +178,14 @@ for cat in categories:
             if v:
                 placeholder_sort_order_dict[v] = placeholder.value if placeholder.value == 1 else placeholder.value + 1
 
-def get_jablonskis_tags(multext_east):
+def multext_east_to_jablonskis_tags(multext_east):
     category = category_map[multext_east[0]][0]
     category_tag_order = category_map[multext_east[0]][1]
     
     tags = []
     
     for i, code in enumerate(multext_east):
-        tags.append( category[i][code] )
+        tags.append( category[i][1][code] )
     
     # Handle verb multiple mappings
     if isinstance(category_tag_order, dict):
@@ -197,8 +197,8 @@ def get_jablonskis_tags(multext_east):
 
     # Probably too slow to map each time
     for i in category_tag_order:
-        if tags[i]:
-            yield order_map[tags[i]]
+        if tags[order_map[i]]:
+            yield tags[order_map[i]]
 
 def sort_jablonskis_tags(jablonskis_tags):
     jablonskis_tags.sort(key=lambda k:placeholder_sort_order_dict[k])
