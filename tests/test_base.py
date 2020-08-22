@@ -3,7 +3,7 @@
 
 from unittest import TestCase, main
 from random import shuffle
-import multext_east_jablonskis_convertor.multext_east_jablonskis as mej
+import morpho_tagsets_lt.multext_east_jablonskis as mej
 
 noun_cases = [
     ('Lietuvai', 'Npfsdng', ['dkt.', 'tikr.', 'mot.', 'vns.', 'N.']),
