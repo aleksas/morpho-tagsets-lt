@@ -15,16 +15,16 @@ Original source of the specs is [Lithuanian morphologically annotated corpus - M
 # Install
 
 ```sh
-pip install git+https://github.com/aleksas/multext-east-jablonskis-convertor.git
+pip install git+https://github.com/aleksas/morpho-tagsets-lt.git
 ```
 
 ## Example
 
 ```python
 
-from multext_east_jablonskis_convertor import get_jablonskis_tags
+from morpho_tagsets_lt import multext_east_to_jablonskis_tags
 
-tags = get_jablonskis_tags('Vgmp1s--n--ni-')
+tags = multext_east_to_jablonskis_tags('Vgmp1s--n--ni-')
 print(' '.join(tags))
 
 ```
